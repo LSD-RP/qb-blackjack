@@ -10,27 +10,28 @@ local leaveCheckCallback = nil
 local _lambo = nil
 local canSitDownCallback = nil
 
-CreateThread(function()
-    while true do
-		sleep = 1000
-        local playerCoords = GetEntityCoords(PlayerPedId())
-        local closestChairDist = #(playerCoords - vector3(948.54760742188, 32.051155090332, 76.101249084473))
-        if closestChairDist < 55.0 then
-			sleep = 10
-            DisableControlAction(0, 140, true)
-            DisableControlAction(0, 135, true)
-            DisableControlAction(0, 122, true)
-            DisableControlAction(0, 92, true)
-            DisableControlAction(0, 24, true)
-            DisableControlAction(0, 69, true)
-            DisableControlAction(0, 142, true)
-            DisableControlAction(0, 135, true)
-            DisableControlAction(0, 19, true)
-			FreezeEntityPosition(_lambo, true)
-        end
-        Wait(sleep)
-    end
-end)
+-- This disables punching near the casino but the area is way too large
+-- CreateThread(function()
+--     while true do
+-- 		sleep = 1000
+--         local playerCoords = GetEntityCoords(PlayerPedId())
+--         local closestChairDist = #(playerCoords - vector3(948.54760742188, 32.051155090332, 76.101249084473))
+--         if closestChairDist < 55.0 then
+-- 			sleep = 10
+--             DisableControlAction(0, 140, true)
+--             DisableControlAction(0, 135, true)
+--             DisableControlAction(0, 122, true)
+--             DisableControlAction(0, 92, true)
+--             DisableControlAction(0, 24, true)
+--             DisableControlAction(0, 69, true)
+--             DisableControlAction(0, 142, true)
+--             DisableControlAction(0, 135, true)
+--             DisableControlAction(0, 19, true)
+-- 			FreezeEntityPosition(_lambo, true)
+--         end
+--         Wait(sleep)
+--     end
+-- end)
 
 --[===[
 	exports["qb-blackjack"]:SetSatDownCallback(function()
