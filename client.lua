@@ -430,6 +430,7 @@ dealerHandObjs = {}
 handObjs = {}
 
 function CreatePeds()
+	print("create peds")
 	if not HasAnimDictLoaded("anim_casino_b@amb@casino@games@blackjack@dealer") then
 		RequestAnimDict("anim_casino_b@amb@casino@games@blackjack@dealer")
 		repeat Wait(0) until HasAnimDictLoaded("anim_casino_b@amb@casino@games@blackjack@dealer")
@@ -446,9 +447,10 @@ function CreatePeds()
 	end
 
 	for i,v in pairs(customTables) do
-		local model = `vw_prop_casino_3cardpoker_01`
+		print("create custom table")
+		local model = `vw_prop_casino_blckjack_01`
 		if v.highStakes == true then
-			model = `vw_prop_casino_3cardpoker_01`
+			model = `vw_prop_casino_blckjack_01`
 		end
 
 		if not HasModelLoaded(model) then
@@ -467,9 +469,9 @@ function CreatePeds()
 	hand = {}
 	splitHand = {}
 	handObjs = {}
-
+	print("creating tables")
 	for i,v in pairs(tables) do
-
+		print("for tables")
 		dealerHand[i] = {}
 		dealerHandObjs[i] = {}
 		local model = `s_f_y_casino_01`
@@ -1295,10 +1297,10 @@ function ProcessTables()
 
 				if #(GetEntityCoords(PlayerPedId()) - vector3(cord.x, cord.y, cord.z)) < 3.0 then
 					local pCoords = GetEntityCoords(PlayerPedId())
-					local tableObj = GetClosestObjectOfType(pCoords, 1.0, `vw_prop_casino_3cardpoker_01`, false, false, false)
+					local tableObj = GetClosestObjectOfType(pCoords, 1.0, `vw_prop_casino_blckjack_01`, false, false, false)
 
 					if GetEntityCoords(tableObj) == vector3(0.0, 0.0, 0.0) then
-						tableObj = GetClosestObjectOfType(pCoords, 1.0, `vw_prop_casino_3cardpoker_01`, false, false, false)
+						tableObj = GetClosestObjectOfType(pCoords, 1.0, `vw_prop_casino_blckjack_01`, false, false, false)
 					end
 
 					if GetEntityCoords(tableObj) ~= vector3(0.0, 0.0, 0.0) then
@@ -1501,12 +1503,15 @@ function ProcessTables()
 end
 
 CreateThread(function()
+	print("function")
 	-- if IsModelInCdimage(`vw_prop_casino_blckjack_01`) and IsModelInCdimage(`s_f_y_casino_01`) and IsModelInCdimage(`vw_prop_chip_10dollar_x1`) then
 	if IsModelInCdimage(`vw_prop_casino_3cardpoker_01`) and IsModelInCdimage(`s_f_y_casino_01`) then
+		print("creating")
 		CreateThread(ProcessTables)
 		CreateThread(CreatePeds)
 	else
 		ThefeedSetAnimpostfxColor(255, 0, 0, 255)
+		print("This server is missing objects required for qb-blackjack!")
 		Notification("This server is missing objects required for qb-blackjack!", nil, true)
 	end
 end)
